@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alejandro | Full Stack Porfolio</title>
+    <title>An0Nimou23sk | Dev Porfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <canvas id="matrix-canvas"></canvas>
+
     <header class="hero">
         <div class="hero-content">
-            <h1>AN0NIMOU23SK</h1>
-            <p class="subtitle">Desarrollador Full Stack & Entusiasta de la Ciberseguridad</p>
+            <h1 id="typing-text">AN0NIMOU23SK</h1>
+            <p class="subtitle">Full Stack Developer & Cyber-Security Enthusiast</p>
+            <div class="status-bar">
+                <span class="dot"></span> DISPONIBLE PARA PROYECTOS
+            </div>
         </div>
     </header>
 
@@ -21,30 +26,34 @@
             
             <div class="projects-grid">
                 
-                <article class="project-card">
-                    <div class="card-tag">Full Stack</div>
+                <article class="project-card" data-tilt>
+                    <div class="card-glow"></div>
                     <div class="project-content">
-                        <h3>GhostChat 👻</h3>
-                        <p>Protocolo de mensajería anónima en tiempo real. Utiliza una base de datos NoSQL para comunicación instantánea con diseño mobile-first y notificaciones auditivas.</p>
+                        <div class="card-header">
+                            <span class="tag">Live Now</span>
+                            <h3>GhostChat 👻</h3>
+                        </div>
+                        <p>Sistema de mensajería efímera con Firebase. Implementa comunicación bidireccional en tiempo real, cifrado lógico y UX optimizada para móviles.</p>
                         
                         <div class="tech-stack">
-                            <span>JavaScript</span>
+                            <span>JS ES6</span>
                             <span>Firebase</span>
-                            <span>CSS3</span>
-                            <span>Realtime DB</span>
+                            <span>NoSQL</span>
+                            <span>Web Audio</span>
                         </div>
 
                         <div class="project-actions">
-                            <a href="https://an0nimou23sk.github.io/ghost-chat/" target="_blank" class="btn primary">Ver Demo</a>
-                            <a href="https://github.com/An0Nimou23sk/ghost-chat" target="_blank" class="btn secondary">Código</a>
+                            <a href="https://an0nimou23sk.github.io/ghost-chat/" target="_blank" class="btn primary">EJECUTAR DEMO</a>
+                            <a href="https://github.com/An0Nimou23sk/ghost-chat" target="_blank" class="btn secondary">REPOSITORIO</a>
                         </div>
                     </div>
                 </article>
 
                 <article class="project-card placeholder">
                     <div class="project-content">
-                        <h3>Próximo Proyecto</h3>
-                        <p>Actualmente trabajando en nuevas soluciones de software asíncrono...</p>
+                        <h3>Próximo Módulo</h3>
+                        <p>Analizando nuevos vectores de desarrollo...</p>
+                        <div class="loader"></div>
                     </div>
                 </article>
 
@@ -53,8 +62,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 An0Nimou23sk - Desarrollado con código limpio.</p>
+        <p>Terminal v1.0.2 | Desarrollado por An0Nimou23sk &copy; 2026</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
