@@ -1,40 +1,59 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lógica del Botón de Escaneo
-    const scanBtn = document.getElementById('scan-btn');
-    const scanResult = document.getElementById('scan-result');
+// 1. Efecto Matrix de Fondo
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
 
-    scanBtn.addEventListener('click', () => {
-        let steps = [
-            "Buscando exploits...", 
-            "Analizando IP: 127.0.0.1...", 
-            "Verificando Certificados de Argentina Programa...", 
-            "SISTEMA PROTEGIDO POR ALEJANDRO DIAZ."
-        ];
-        let i = 0;
-        scanBtn.disabled = true;
-        scanBtn.style.opacity = "0.5";
-        
-        const interval = setInterval(() => {
-            scanResult.innerText = steps[i];
-            i++;
-            if (i >= steps.length) {
-                clearInterval(interval);
-                scanBtn.disabled = false;
-                scanBtn.style.opacity = "1";
-            }
-        }, 800);
-    });
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    // 2. Scroll suave para los enlaces del menú
-    document.querySelectorAll('.cyber-nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
 
-    console.log("Terminal vinculada. Autoridades verificadas.");
-});
+const drops = [];
+for (let x = 0; x < columns; x++) {
+    drops[x] = 1;
+}
+
+function drawMatrix() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#0F0';
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+// 2. Efecto de Escritura (Typing)
+const typingElement = document.getElementById('typing-text');
+const textToType = typingElement.innerText;
+typingElement.innerText = '';
+let charIndex = 0;
+
+function typeEffect() {
+    if (charIndex < textToType.length) {
+        typingElement.innerText += textToType.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 150);
+    }
+}
+
+// Inicializar todo
+window.onload = () => {
+    typeEffect();
+    setInterval(drawMatrix, 50);
+};
+
+// Ajustar canvas si se cambia el tamaño de ventana
+window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
