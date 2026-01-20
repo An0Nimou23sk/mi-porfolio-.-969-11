@@ -1,58 +1,47 @@
-// 1. Efecto Matrix de Fondo
+// EFECTO MATRIX
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
-const fontSize = 16;
+const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@&";
+const fontSize = 14;
 const columns = canvas.width / fontSize;
-
-const drops = [];
-for (let x = 0; x < columns; x++) {
-    drops[x] = 1;
-}
+const drops = Array(Math.floor(columns)).fill(1);
 
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = '#0F0';
-    ctx.font = fontSize + 'px monospace';
-
+    ctx.fillStyle = "#0F0";
+    ctx.font = fontSize + "px monospace";
     for (let i = 0; i < drops.length; i++) {
-        const text = characters.charAt(Math.floor(Math.random() * characters.length));
+        const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
     }
 }
 
-// 2. Efecto de Escritura (Typing)
-const typingElement = document.getElementById('typing-text');
-const textToType = typingElement.innerText;
-typingElement.innerText = '';
-let charIndex = 0;
+// EFECTO DE ESCRITURA
+const typingH1 = document.getElementById('typing-text');
+const originalText = typingH1.innerText;
+typingH1.innerText = "";
+let index = 0;
 
-function typeEffect() {
-    if (charIndex < textToType.length) {
-        typingElement.innerText += textToType.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeEffect, 150);
+function type() {
+    if (index < originalText.length) {
+        typingH1.innerHTML += originalText.charAt(index);
+        index++;
+        setTimeout(type, 150);
     }
 }
 
-// Inicializar todo
+// INICIALIZACIÓN
 window.onload = () => {
-    typeEffect();
+    type();
     setInterval(drawMatrix, 50);
 };
 
-// Ajustar canvas si se cambia el tamaño de ventana
 window.onresize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
