@@ -1,17 +1,134 @@
-:root { --primary: #00ff41; --bg: #0a0a0a; --card-bg: rgba(20, 20, 20, 0.9); }
+:root {
+    --primary: #bc13fe; /* Púrpura Fluorescente */
+    --primary-glow: #d670ff;
+    --bg: #050005; /* Fondo ultra oscuro con tinte purpura */
+    --card-bg: rgba(15, 0, 15, 0.9);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background-color: var(--bg); color: #e0e0e0; font-family: 'Courier New', monospace; overflow-x: hidden; }
-#matrix-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
-.container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-.hero { height: 45vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-.hero h1 { font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-.status-bar { border: 1px solid var(--primary); padding: 5px 15px; font-size: 0.8rem; margin-top: 20px; display: inline-block; color: var(--primary); }
-.dot { height: 8px; width: 8px; background: var(--primary); border-radius: 50%; display: inline-block; animation: blink 1s infinite; margin-right: 5px; }
-.section-title { color: var(--primary); margin: 50px 0 25px; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
-.cert-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-.project-card, .cert-item { background: var(--card-bg); border: 1px solid #333; padding: 30px; border-radius: 4px; transition: 0.3s; }
+
+body {
+    background-color: var(--bg);
+    color: #f0e0f0;
+    font-family: 'Courier New', monospace;
+    overflow-x: hidden;
+}
+
+#matrix-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.25; /* Un poco más visible para lucir el púrpura */
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Hero */
+.hero {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: var(--primary);
+    text-shadow: 0 0 15px var(--primary);
+}
+
+.status-bar {
+    border: 1px solid var(--primary);
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    margin-top: 20px;
+    display: inline-block;
+    color: var(--primary);
+    box-shadow: 0 0 10px rgba(188, 19, 254, 0.3);
+}
+
+.dot {
+    height: 8px; width: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 1s infinite;
+    margin-right: 5px;
+}
+
+.section-title {
+    color: var(--primary);
+    margin: 50px 0 25px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #300030;
+    padding-bottom: 10px;
+}
+
+/* Tarjetas */
+.cert-grid, .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.project-card, .cert-item, .contact-card {
+    background: var(--card-bg);
+    border: 1px solid #300030;
+    padding: 30px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
 .cert-item.highlight { border-left: 4px solid var(--primary); }
-.live-tag { background: var(--primary); color: #000; font-size: 0.7rem; padding: 2px 6px; margin-left: 10px; }
-.btn { text-decoration: none; padding: 10px 20px; font-weight: bold; font-size: 0.8rem; display: inline-block; background: var(--primary); color: #000; margin-top: 20px; }
-.avales { font-size: 0.85rem; color: #888; margin-top: 10px; }
+
+.project-card:hover, .cert-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.2);
+}
+
+.live-tag { background: var(--primary); color: #000; font-size: 0.7rem; padding: 2px 6px; margin-left: 10px; font-weight: bold; }
+
+.cert-date { display: block; margin-top: 15px; font-size: 0.8rem; color: var(--primary); font-weight: bold; }
+
+/* Botones */
+.btn {
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: inline-block;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.btn.primary { background: var(--primary); color: #000; }
+.btn.primary:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+
+/* Contacto */
+.contact-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.contact-btn {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.contact-btn:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 25px var(--primary);
+}
+
 @keyframes blink { 50% { opacity: 0; } }
+@media (max-width: 600px) { .hero h1 { font-size: 2.5rem; } }
