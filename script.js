@@ -1,70 +1,48 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+// 1. Fondo Matrix
+const canvas = document.getElementById('matrix-canvas');
+const ctx = canvas.getContext('2d');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD0PZK3Prt5CufdQyBOTrsGFPxYzt0l_XU",
-  authDomain: "ghost-chat-an0nimous.firebaseapp.com",
-  databaseURL: "https://ghost-chat-an0nimous-default-rtdb.firebaseio.com",
-  projectId: "ghost-chat-an0nimous",
-  storageBucket: "ghost-chat-an0nimous.firebasestorage.app",
-  messagingSenderId: "611834273169",
-  appId: "1:611834273169:web:f4a23d0bfb22fe1f7a0e30"
-};
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const dbRef = ref(db, 'mensajes');
-let usuarioActual = "";
+const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ$#@&";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
 
-const sonidoNotificacion = new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3');
-
-document.getElementById('btn-entrar').addEventListener('click', () => {
-    const inputUser = document.getElementById('username');
-    if (inputUser.value.trim() !== "") {
-        usuarioActual = inputUser.value;
-        document.getElementById('display-name').innerText = usuarioActual.toUpperCase();
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('chat-screen').style.display = 'flex';
-    }
-});
-
-function enviarMensaje() {
-    const inputMsg = document.getElementById('message-input');
-    const texto = inputMsg.value;
-
-    if (texto.trim() !== "" && usuarioActual !== "") {
-        push(dbRef, {
-            usuario: usuarioActual,
-            texto: texto,
-            tiempo: Date.now()
-        });
-        inputMsg.value = "";
+function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#0F0";
+    ctx.font = fontSize + "px monospace";
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
     }
 }
 
-document.getElementById('btn-enviar').addEventListener('click', enviarMensaje);
-document.getElementById('message-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        enviarMensaje();
-    }
-});
+// 2. Efecto Typing
+const typingH1 = document.getElementById('typing-text');
+const text = typingH1.innerText;
+typingH1.innerText = "";
+let i = 0;
 
-onChildAdded(dbRef, (data) => {
-    const msgData = data.val();
-    const chatBox = document.getElementById('chat-box');
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message');
-    
-    // Asignar clase según el autor
-    if (msgData.usuario === usuarioActual) {
-        msgDiv.classList.add('mine');
-    } else {
-        msgDiv.classList.add('other');
-        sonidoNotificacion.play().catch(() => {});
+function type() {
+    if (i < text.length) {
+        typingH1.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 150);
     }
+}
 
-    msgDiv.innerHTML = `<span class="msg-user">${msgData.usuario}</span>${msgData.texto}`;
-    chatBox.appendChild(msgDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-});
+window.onload = () => {
+    type();
+    setInterval(drawMatrix, 50);
+};
+
+window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
