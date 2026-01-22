@@ -1,120 +1,17 @@
-:root {
-    --primary: #00ff41;
-    --bg: #0a0a0a;
-    --card-bg: rgba(20, 20, 20, 0.9);
-}
-
+:root { --primary: #00ff41; --bg: #0a0a0a; --card-bg: rgba(20, 20, 20, 0.9); }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    background-color: var(--bg);
-    color: #e0e0e0;
-    font-family: 'Courier New', monospace;
-    overflow-x: hidden;
-}
-
-#matrix-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    opacity: 0.15;
-}
-
-.container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.hero {
-    height: 45vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    color: var(--primary);
-    text-shadow: 0 0 10px var(--primary);
-}
-
-.status-bar {
-    border: 1px solid var(--primary);
-    padding: 5px 15px;
-    font-size: 0.8rem;
-    margin-top: 20px;
-    display: inline-block;
-    color: var(--primary);
-}
-
-.dot {
-    height: 8px; width: 8px;
-    background: var(--primary);
-    border-radius: 50%;
-    display: inline-block;
-    animation: blink 1s infinite;
-    margin-right: 5px;
-}
-
-.section-title {
-    color: var(--primary);
-    margin: 50px 0 25px;
-    font-size: 1.5rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
-}
-
-.cert-grid, .skills-grid, .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 25px;
-}
-
-.project-card, .cert-item, .skill-category {
-    background: var(--card-bg);
-    border: 1px solid #333;
-    padding: 30px;
-    border-radius: 4px;
-    transition: 0.3s;
-}
-
-.cert-item.highlight {
-    border-left: 4px solid var(--primary);
-}
-
-.project-card:hover, .cert-item:hover {
-    border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-}
-
-.live-tag {
-    background: var(--primary);
-    color: #000;
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    margin-left: 10px;
-}
-
+body { background-color: var(--bg); color: #e0e0e0; font-family: 'Courier New', monospace; overflow-x: hidden; }
+#matrix-canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.15; }
+.container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+.hero { height: 45vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hero h1 { font-size: 3.5rem; color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+.status-bar { border: 1px solid var(--primary); padding: 5px 15px; font-size: 0.8rem; margin-top: 20px; display: inline-block; color: var(--primary); }
+.dot { height: 8px; width: 8px; background: var(--primary); border-radius: 50%; display: inline-block; animation: blink 1s infinite; margin-right: 5px; }
+.section-title { color: var(--primary); margin: 50px 0 25px; font-size: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
+.cert-grid, .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+.project-card, .cert-item { background: var(--card-bg); border: 1px solid #333; padding: 30px; border-radius: 4px; transition: 0.3s; }
+.cert-item.highlight { border-left: 4px solid var(--primary); }
+.live-tag { background: var(--primary); color: #000; font-size: 0.7rem; padding: 2px 6px; margin-left: 10px; }
+.btn { text-decoration: none; padding: 10px 20px; font-weight: bold; font-size: 0.8rem; display: inline-block; background: var(--primary); color: #000; margin-top: 20px; }
 .avales { font-size: 0.85rem; color: #888; margin-top: 10px; }
-.cert-date { display: block; margin-top: 15px; font-size: 0.8rem; color: var(--primary); }
-
-.btn {
-    text-decoration: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    display: inline-block;
-}
-
-.btn.primary { background: var(--primary); color: #000; }
-.btn.secondary { border: 1px solid var(--primary); color: var(--primary); margin-left: 10px; }
-
-ul { list-style: none; margin-top: 15px; }
-ul li::before { content: "> "; color: var(--primary); }
-
 @keyframes blink { 50% { opacity: 0; } }
-
-footer { text-align: center; padding: 60px; color: #444; font-size: 0.8rem; }
