@@ -1,85 +1,133 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alejandro Diaz | Porfolio Profesional</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <canvas id="matrix-canvas"></canvas>
+:root {
+    --primary: #00ff41;
+    --my-msg: #004d1a;
+    --other-msg: #1a1a1a;
+    --bg: #050505;
+    --text: #e0e0e0;
+}
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1 id="typing-text">ALEJANDRO DIAZ</h1>
-            <p class="subtitle">Full Stack Developer & Cybersecurity Enthusiast</p>
-            <div class="status-bar"><span class="dot"></span> DISPONIBLE PARA PROYECTOS</div>
-        </div>
-    </header>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
 
-    <main class="container">
-        <section id="proyectos">
-            <h2 class="section-title"># Proyectos Destacados</h2>
-            <div class="projects-grid">
-                <article class="project-card">
-                    <div class="project-content">
-                        <h3>GhostChat 👻 <span class="live-tag">Live Now</span></h3>
-                        <p>Protocolo de mensajería en tiempo real con Firebase. Implementa comunicación bidireccional y notificaciones auditivas.</p>
-                        <div class="tech-stack">
-                            <span>JavaScript</span> <span>Firebase</span> <span>NoSQL</span>
-                        </div>
-                        <div class="project-actions">
-                            <a href="https://an0nimou23sk.github.io/ghost-chat/" target="_blank" class="btn primary">EJECUTAR DEMO</a>
-                            <a href="https://github.com/An0Nimou23sk/ghost-chat" target="_blank" class="btn secondary">CÓDIGO</a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
+body { background-color: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
 
-        <section id="certificaciones">
-            <h2 class="section-title"># Certificaciones Oficiales</h2>
-            <div class="cert-grid">
-                <div class="cert-item">
-                    <h4>#SéProgramar - Primera Etapa</h4>
-                    <p>Avalado por: <strong>Argentina Programa, INTI, CESSI</strong></p>
-                    <span class="cert-date">Emitido: 11 de junio de 2022</span>
-                </div>
-                <div class="cert-item">
-                    <h4>Ciberseguridad & Analítica</h4>
-                    <p>Avalado por: <strong>INCIBE / Google</strong></p>
-                    <span class="cert-date">Enero 2026</span>
-                </div>
-            </div>
-        </section>
+/* LOGIN SCREEN */
+#login-screen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #001a05 0%, #050505 100%);
+}
 
-        <section id="skills">
-            <h2 class="section-title"># Conocimientos Técnicos</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h4>Desarrollo Full Stack</h4>
-                    <ul>
-                        <li>JavaScript (ES6+) & DOM Manipulation</li>
-                        <li>Firebase Realtime Database Admin</li>
-                        <li>Despliegue y Gestión de Dominios</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h4>Ciberseguridad</h4>
-                    <ul>
-                        <li>Análisis de Vulnerabilidades</li>
-                        <li>Pentesting Básico & Defensivo</li>
-                        <li>Gestión de Dominios Autorizados</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </main>
+.login-box { text-align: center; width: 90%; max-width: 350px; }
+.login-box h1 { font-size: 2.5rem; letter-spacing: 5px; color: #fff; }
+.login-box h1 span { color: var(--primary); }
+.login-box p { color: #666; margin-bottom: 30px; font-size: 0.8rem; text-transform: uppercase; }
 
-    <footer>
-        <p>Terminal v1.0.2 | Alejandro Díaz &copy; 2026</p>
-    </footer>
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    background: #111;
+    border: 1px solid #333;
+    color: var(--primary);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    outline: none;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+button {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* CHAT SCREEN */
+#chat-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px 20px;
+    background: rgba(15, 15, 15, 0.9);
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.online-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 10px var(--primary); }
+
+#chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-image: linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* BURBUJAS DE MENSAJE */
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    line-height: 1.4;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.message .msg-user {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+/* Mis mensajes (Derecha) */
+.message.mine {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--my-msg), #002b0f);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-bottom-right-radius: 4px;
+    color: #fff;
+}
+
+/* Mensajes de otros (Izquierda) */
+.message.other {
+    align-self: flex-start;
+    background: var(--other-msg);
+    border: 1px solid #333;
+    border-bottom-left-radius: 4px;
+}
+
+/* ÁREA DE ENTRADA */
+.input-area {
+    padding: 15px;
+    background: #0f0f0f;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#message-input { margin-bottom: 0; flex: 1; background: #1a1a1a; border-radius: 25px; padding: 12px 20px; }
+
+#btn-enviar { width: 50px; height: 50px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* Scrollbar personalizada */
+#chat-box::-webkit-scrollbar { width: 5px; }
+#chat-box::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
