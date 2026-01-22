@@ -1,4 +1,4 @@
-// 1. Fondo Matrix
+// 1. Fondo Matrix Recalibrado
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -23,16 +23,16 @@ function drawMatrix() {
     }
 }
 
-// 2. Efecto Typing
+// 2. Efecto Typing Inicial
 const typingH1 = document.getElementById('typing-text');
-const text = typingH1.innerText;
+const originalText = typingH1.innerText;
 typingH1.innerText = "";
-let i = 0;
+let index = 0;
 
 function type() {
-    if (i < text.length) {
-        typingH1.innerHTML += text.charAt(i);
-        i++;
+    if (index < originalText.length) {
+        typingH1.innerHTML += originalText.charAt(index);
+        index++;
         setTimeout(type, 150);
     }
 }
